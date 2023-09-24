@@ -1,0 +1,121 @@
+CREATE WAREHOUSE banking_analysis;
+
+USE WAREHOUSE banking_analysis;
+
+CREATE DATABASE cz_bank_db;
+
+USE DATABASE cz_bank_db;
+
+// Table creation - account, card, client, disp, district, loan, orders, transactions
+
+CREATE OR REPLACE TABLE district(
+district_code INT PRIMARY KEY	,
+district_name VARCHAR(100)	,
+region VARCHAR(100)	,
+no_of_inhabitants INT,
+no_of_municipalities_with_inhabitants_less_499 INT,
+no_of_municipalities_with_inhabitants_500_btw_1999 INT,
+no_of_municipalities_with_inhabitants_2000_btw_9999	INT,
+no_of_municipalities_with_inhabitants_less_10000 INT,	
+no_of_cities INT,
+ratio_of_urban_inhabitants FLOAT,
+average_salary INT,
+no_of_entrepreneurs_per_1000_inhabitants INT,
+no_committed_crime_2017	INT,
+no_committed_crime_2018 INT
+) ;
+
+
+CREATE OR REPLACE TABLE account(
+account_id INT PRIMARY KEY,
+district_id	INT,
+frequency VARCHAR(40),
+date DATE ,
+account_Type VARCHAR(100) ,
+card_Assigned VARCHAR(20)
+FOREIGN KEY (district_id) references district(district_code) 
+);
+
+
+CREATE OR REPLACE TABLE orders (
+order_id INT PRIMARY KEY,
+account_id INT,
+bank_to	VARCHAR(45),
+account_to INT,
+amount FLOAT,
+FOREIGN KEY (account_id) references account (account_id)
+);
+
+
+CREATE OR REPLACE TABLE loan
+(
+loan_id	INT,
+account_id INT,
+date DATE,
+amount INT,
+duration INT,
+payments INT,
+status VARCHAR(35),
+FOREIGN KEY (account_id) references account (account_id)
+);
+
+
+
+CREATE OR REPLACE TABLE transactions
+(
+trans_id INT,	
+account_id	INT,
+date DATE,
+type VARCHAR(50),
+operation VARCHAR(70),
+amount INT,
+balance	FLOAT,
+purpose	VARCHAR(50),
+bank VARCHAR(50),
+account_partner_id INT,
+FOREIGN KEY (account_id) references account (account_id)
+);
+
+
+CREATE OR REPLACE TABLE client
+(
+client_id INT PRIMARY KEY,
+district_id INT,
+gender CHAR(20),
+dob	DATE,
+FOREIGN KEY (district_id) references district (district_code) 
+);
+
+
+
+CREATE OR REPLACE TABLE disposition
+(
+disp_id	INT PRIMARY KEY,
+client_id INT,
+account_id	INT,
+type CHAR(15),
+FOREIGN KEY (account_id) references account(account_id),
+FOREIGN KEY (client_id) references client(client_id)
+);
+
+
+CREATE OR REPLACE TABLE card
+(
+card_id	INT PRIMARY KEY,
+disp_id	INT,
+type CHAR(10)	,
+issued_date DATE,
+FOREIGN KEY (disp_id) references disposition(disp_id)
+);
+
+
+
+
+
+
+
+
+
+
+
+

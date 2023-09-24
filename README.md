@@ -24,11 +24,11 @@ The analysis will involve data cleaning, exploratory data analysis, and predicti
 
 **Tech used:**
 
-Original Data Source: CSV files
-Data Cleaning: Excel, SQL
-Cloud Storage: AWS S3
-Cloud Warehouse: Snowflake
-Visualization: Power BI
+•	Original Data Source: CSV files
+•	Data Cleaning: Excel, SQL
+•	Cloud Storage: AWS S3
+•	Cloud Warehouse: Snowflake
+•	Visualization: Power BI
 
 
 

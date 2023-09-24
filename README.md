@@ -1,5 +1,4 @@
-# cz_bank_analysis
-End to end data analyst project
+**# Czechoslovakia_bank_analysis: End to end data analyst project**
 
 
 **Project Summary: **

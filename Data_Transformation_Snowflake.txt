@@ -1,0 +1,34 @@
+-- 1. Data Transformation 
+
+-- Adding a new column 'age' in client table.
+-- Age should be calculated till 2022-12-31
+
+ALTER TABLE CLIENT
+ADD COLUMN AGE INT;
+
+UPDATE CLIENT
+SET AGE = DATEDIFF(YEAR,DOB,'2022-12-31');
+
+SELECT TOP 10* FROM CLIENT;
+
+
+-- 2. Data Transformation 
+
+-- Bank column has some null values for year 2017 & 2018, we'll update those with following
+-- If the year = 2017 then 'DBS Bank'
+-- If the year = 2018 then 'SKY Bank'
+
+SELECT BANK, COUNT(*) FROM TRANSACTIONS
+GROUP BY BANK;
+
+SELECT YEAR(DATE), COUNT(*) FROM TRANSACTIONS
+WHERE BANK IS NULL
+GROUP BY YEAR(DATE);
+
+UPDATE TRANSACTIONS
+SET BANK = 'Northern Bank'
+WHERE BANK IS NULL AND YEAR(DATE) = 2017;
+
+UPDATE TRANSACTIONS
+SET BANK = 'Southern Bank'
+WHERE BANK IS NULL AND YEAR(DATE) = 2018;
